@@ -22,9 +22,15 @@ export default (state = initialState.crew, action) => {
     switch (action.type) {
         case SET_CREW:
             return action.crew.reduce((acc, item) => {
-                const {first, last} = item.name
-                const {medium} = item.picture
-                acc.push({fullName: `${first} ${last}`, avatar: medium, status: StatusesMap[0]})
+                const {first, last} = item.name;
+                const {medium} = item.picture;
+                const {city} = item.location;
+                acc.push({
+                    fullName: `${first} ${last}`,
+                    avatar: medium,
+                    status: StatusesMap[0]},
+                    city
+                );
                 return acc
             }, [])
         case MOVE_STATUS_FURTHER:

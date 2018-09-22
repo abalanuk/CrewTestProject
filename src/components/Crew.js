@@ -37,8 +37,8 @@ class ProspectiveCrew extends PureComponent {
                     {
                         StatusesMap.map((status, statusIndex) => {
                             return (
-                                <div className='Crew-column'>
-                                    <h3 key={statusIndex}>
+                                <div key={statusIndex} className='Crew-column'>
+                                    <h3>
                                         {status}
                                         <ul className='Personnel-list'>
                                             {
