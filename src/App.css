@@ -28,6 +28,7 @@
 
 .Crew-statuses {
   display: flex;
+  flex: .8;
   flex-direction: row;
   justify-content: space-around;
 }
@@ -35,6 +36,11 @@
 .Crew-container {
   display: flex;
   flex-direction: column;
+  margin: 10px;
+}
+
+.Crew-column {
+  flex: 1;
 }
 
 .Personnel-list {
@@ -45,4 +51,10 @@
   border: 1px solid darkblue;
   margin-bottom: 10px;
   flex-direction: row;
+}
+
+.Status-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

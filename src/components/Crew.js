@@ -20,11 +20,9 @@ class ProspectiveCrew extends PureComponent {
     }
 
     moveToNextStatus(pers) {
-        //TODO: send redux action to change status of item in collection
         this.props.moveFurtherStatus(pers)
     }
     moveToPreviousStatus(pers) {
-        //TODO: send redux action to change status to previous one
         this.props.movePreviousStatus(pers)
     }
 
@@ -37,33 +35,37 @@ class ProspectiveCrew extends PureComponent {
                     {
                         StatusesMap.map((item, ind) => {
                             return (
-                                <h3 key={ind}>
-                                    {item}
-                                    <ul className='Personnel-list'>
-                                        {
-                                            crew
-                                                .filter(person => person.status === item)
-                                                .map((filtered, index) => {
-                                                    return (
-                                                        <li key={index} className='Personnel-card'>
-                                                            <div style={{display: 'flex', flexDirection: 'row'}}>
-                                                                <img src={filtered.avatar} alt="Avatar"/>
-                                                                <p>{filtered.fullName}</p>
-                                                            </div>
-                                                            {filtered.status !== StatusesMap[2] ?
-                                                                <button onClick={this.moveToNextStatus.bind(this, filtered)}>Move further</button> :
-                                                                null
-                                                            }
-                                                            {filtered.status !== StatusesMap[0] ?
-                                                                <button onClick={this.moveToPreviousStatus.bind(this, filtered)}>Return back</button> :
-                                                                null
-                                                            }
-                                                        </li>
-                                                    )
-                                            })
-                                        }
-                                    </ul>
-                                </h3>
+                                <div className='Crew-column'>
+                                    <h3 key={ind}>
+                                        {item}
+                                        <ul className='Personnel-list'>
+                                            {
+                                                crew
+                                                    .filter(person => person.status === item)
+                                                    .map((filtered, index) => {
+                                                        return (
+                                                            <li key={index} className='Personnel-card'>
+                                                                <div style={{display: 'flex', flexDirection: 'row'}}>
+                                                                    <img src={filtered.avatar} alt="Avatar"/>
+                                                                    <p>{filtered.fullName}</p>
+                                                                </div>
+                                                                <div className='Status-actions'>
+                                                                    {filtered.status !== StatusesMap[2] ?
+                                                                        <button onClick={this.moveToNextStatus.bind(this, filtered)}>Move further</button> :
+                                                                        null
+                                                                    }
+                                                                    {filtered.status !== StatusesMap[0] ?
+                                                                        <button onClick={this.moveToPreviousStatus.bind(this, filtered)}>Return back</button> :
+                                                                        null
+                                                                    }
+                                                                </div>
+                                                            </li>
+                                                        )
+                                                    })
+                                            }
+                                        </ul>
+                                    </h3>
+                                </div>
                             )
                         })
                     }
@@ -87,8 +89,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setCrew: (crew) => dispatch(setCrew(crew)),
-        moveFurtherStatus: () => dispatch(setCrew(moveFurtherStatus)),
-        movePreviousStatus: () => dispatch(setCrew(movePreviousStatus))
+        moveFurtherStatus: (pers) => dispatch(moveFurtherStatus(pers)),
+        movePreviousStatus: (pers) => dispatch(movePreviousStatus(pers))
     }
 }
 
