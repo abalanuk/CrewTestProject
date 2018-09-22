@@ -21,14 +21,12 @@ export default (state = initialState.crew, action) => {
     const statusArrLength = StatusesMap.length
     switch (action.type) {
         case SET_CREW:
-            const processedCrew = action.crew.reduce((acc, item) => {
+            return action.crew.reduce((acc, item) => {
                 const {first, last} = item.name
                 const {medium} = item.picture
                 acc.push({fullName: `${first} ${last}`, avatar: medium, status: StatusesMap[0]})
                 return acc
             }, [])
-
-            return processedCrew
         case MOVE_STATUS_FURTHER:
             return [
                 ...state.map(person => {

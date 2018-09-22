@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
+
 import Filters from './Filters'
 import {setCrew, moveFurtherStatus, movePreviousStatus} from '../redux/crewReducer'
 import fetchData from '../data/data'
@@ -12,7 +13,6 @@ class ProspectiveCrew extends PureComponent {
         const {setCrew} = this.props
         fetchData('https://randomuser.me/api/?results=5')
             .then(data => {
-                console.log(data.results)
                 setCrew(data.results)
             })
             .catch(err => console.log(err))
@@ -22,10 +22,12 @@ class ProspectiveCrew extends PureComponent {
     moveToNextStatus(pers) {
         this.props.moveFurtherStatus(pers)
     }
+    
     moveToPreviousStatus(pers) {
         this.props.movePreviousStatus(pers)
     }
 
+    //TODO: refactor this method by extracting some stuff into PersonellCard component
     render() {
         const {crew} = this.props
         return (
@@ -33,15 +35,15 @@ class ProspectiveCrew extends PureComponent {
                 <Filters/>
                 <div className='Crew-statuses'>
                     {
-                        StatusesMap.map((item, ind) => {
+                        StatusesMap.map((status, statusIndex) => {
                             return (
                                 <div className='Crew-column'>
-                                    <h3 key={ind}>
-                                        {item}
+                                    <h3 key={statusIndex}>
+                                        {status}
                                         <ul className='Personnel-list'>
                                             {
                                                 crew
-                                                    .filter(person => person.status === item)
+                                                    .filter(person => person.status === status)
                                                     .map((filtered, index) => {
                                                         return (
                                                             <li key={index} className='Personnel-card'>
@@ -88,9 +90,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setCrew: (crew) => dispatch(setCrew(crew)),
-        moveFurtherStatus: (pers) => dispatch(moveFurtherStatus(pers)),
-        movePreviousStatus: (pers) => dispatch(movePreviousStatus(pers))
+        setCrew: crew => dispatch(setCrew(crew)),
+        moveFurtherStatus: pers => dispatch(moveFurtherStatus(pers)),
+        movePreviousStatus: pers => dispatch(movePreviousStatus(pers))
     }
 }
 

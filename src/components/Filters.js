@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
-import {
-    setFilter
-} from '../redux/filterReducer'
-
+import {setFilter} from '../redux/filterReducer';
 
 //TODO: do not forget to save filter in localStorage for persisting between tabs
 class Filters extends PureComponent {
@@ -12,8 +9,8 @@ class Filters extends PureComponent {
         filter && this.props.setFilter(filter)
     }
 
-    setFilter = (filter) => {
-        this.props.setFilter(filter)
+    setFilter = filter => {
+        this.props.setFilter(filter);
         localStorage.setItem("filter", filter);
     }
 
@@ -25,6 +22,7 @@ class Filters extends PureComponent {
         );
     }
 }
+
 const mapStateToProps = state => {
     return state
 }
