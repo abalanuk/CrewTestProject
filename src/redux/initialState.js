@@ -1,3 +1,4 @@
 export default {
-    crew: []
+    crew: [],
+    filter: ''
 }

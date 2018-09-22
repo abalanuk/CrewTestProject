@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
 import Filters from './Filters'
-import {setCrew} from '../redux/crewReducer'
+import {setCrew, moveFurtherStatus, movePreviousStatus} from '../redux/crewReducer'
 import fetchData from '../data/data'
+import {StatusesMap} from '../constants/placeholders'
+
+import '../App.css';
 
 class ProspectiveCrew extends PureComponent {
     componentDidMount() {
@@ -15,43 +18,77 @@ class ProspectiveCrew extends PureComponent {
             .catch(err => console.log(err))
 
     }
+
+    moveToNextStatus(pers) {
+        //TODO: send redux action to change status of item in collection
+        this.props.moveFurtherStatus(pers)
+    }
+    moveToPreviousStatus(pers) {
+        //TODO: send redux action to change status to previous one
+        this.props.movePreviousStatus(pers)
+    }
+
     render() {
+        const {crew} = this.props
         return (
-            <div>
+            <div className='Crew-container'>
                 <Filters/>
-                <ul>
+                <div className='Crew-statuses'>
                     {
-                        this.props.crew.map((item, index) => {
+                        StatusesMap.map((item, ind) => {
                             return (
-                                <li key={index}>
-                                    {item.fullName}
-                                </li>
+                                <h3 key={ind}>
+                                    {item}
+                                    <ul className='Personnel-list'>
+                                        {
+                                            crew
+                                                .filter(person => person.status === item)
+                                                .map((filtered, index) => {
+                                                    return (
+                                                        <li key={index} className='Personnel-card'>
+                                                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                                                                <img src={filtered.avatar} alt="Avatar"/>
+                                                                <p>{filtered.fullName}</p>
+                                                            </div>
+                                                            {filtered.status !== StatusesMap[2] ?
+                                                                <button onClick={this.moveToNextStatus.bind(this, filtered)}>Move further</button> :
+                                                                null
+                                                            }
+                                                            {filtered.status !== StatusesMap[0] ?
+                                                                <button onClick={this.moveToPreviousStatus.bind(this, filtered)}>Return back</button> :
+                                                                null
+                                                            }
+                                                        </li>
+                                                    )
+                                            })
+                                        }
+                                    </ul>
+                                </h3>
                             )
                         })
                     }
-                </ul>
+                </div>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
-    const {crew} = state
+    const {crew, filter} = state
 
-    debugger
-    const processedCrew = crew.reduce((acc, item) => {
-        const {first, last} = item.name
-        const {medium} = item.picture
-        acc.push({fullName: `${first} ${last}`, avatar: medium})
-        return acc
-    }, [])
+    if(filter) {
+        const filtered = crew.filter(person => person[filter.key] === filter.value)
+        return {crew: filtered}
+    }
 
-    return {crew: processedCrew}
+    return {crew}
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        setCrew: (crew) => dispatch(setCrew(crew))
+        setCrew: (crew) => dispatch(setCrew(crew)),
+        moveFurtherStatus: () => dispatch(setCrew(moveFurtherStatus)),
+        movePreviousStatus: () => dispatch(setCrew(movePreviousStatus))
     }
 }
 

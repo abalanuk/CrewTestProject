@@ -1,4 +1,10 @@
 import React, { PureComponent } from 'react';
+import {connect} from 'react-redux';
+import {
+    filterByCity,
+    filterByName,
+} from '../redux/filterReducer'
+
 
 class Filters extends PureComponent {
     render() {
@@ -9,5 +15,15 @@ class Filters extends PureComponent {
         );
     }
 }
+const mapStateToProps = state => {
+    return state
+}
 
-export default Filters;
+const mapDispatchToProps = dispatch => {
+    return {
+        filterByCity: (city) => dispatch(filterByCity(city)),
+        filterByName: (name) => dispatch(filterByName(name)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters)

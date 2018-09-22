@@ -25,3 +25,24 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.Crew-statuses {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.Crew-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Personnel-list {
+  list-style-type : none;
+}
+
+.Personnel-card {
+  border: 1px solid darkblue;
+  margin-bottom: 10px;
+  flex-direction: row;
+}
