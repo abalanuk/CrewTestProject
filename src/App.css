@@ -26,6 +26,12 @@
   to { transform: rotate(360deg); }
 }
 
+.Crew-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
 .Crew-statuses {
   display: flex;
   flex: .8;
@@ -33,28 +39,30 @@
   justify-content: space-around;
 }
 
-.Crew-container {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
 .Crew-column {
   flex: 1;
+  border: 1px solid #06679a;
 }
 
 .Personnel-list {
   list-style-type : none;
+  padding: 10px;
 }
 
 .Personnel-card {
-  border: 1px solid darkblue;
+  border: 2px solid #06679a;
   margin-bottom: 10px;
+  padding: 15px;
+}
+
+.Personnel-info {
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .Status-actions {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  margin-top: 10px;
 }

@@ -30,6 +30,7 @@ class ProspectiveCrew extends PureComponent {
     //TODO: refactor this method by extracting some stuff into PersonellCard component
     render() {
         const {crew} = this.props
+        const statusMapLength = StatusesMap.length
         return (
             <div className='Crew-container'>
                 <Filters/>
@@ -38,35 +39,41 @@ class ProspectiveCrew extends PureComponent {
                         StatusesMap.map((status, statusIndex) => {
                             return (
                                 <div key={statusIndex} className='Crew-column'>
-                                    <h3>
-                                        {status}
-                                        <ul className='Personnel-list'>
-                                            {
-                                                crew
-                                                    .filter(person => person.status === status)
-                                                    .map((filtered, index) => {
-                                                        return (
-                                                            <li key={index} className='Personnel-card'>
-                                                                <div style={{display: 'flex', flexDirection: 'row'}}>
-                                                                    <img src={filtered.avatar} alt="Avatar"/>
-                                                                    <p>{filtered.fullName}</p>
-                                                                </div>
-                                                                <div className='Status-actions'>
-                                                                    {filtered.status !== StatusesMap[2] ?
-                                                                        <button onClick={this.moveToNextStatus.bind(this, filtered)}>Move further</button> :
-                                                                        null
-                                                                    }
-                                                                    {filtered.status !== StatusesMap[0] ?
-                                                                        <button onClick={this.moveToPreviousStatus.bind(this, filtered)}>Return back</button> :
-                                                                        null
-                                                                    }
-                                                                </div>
-                                                            </li>
-                                                        )
-                                                    })
-                                            }
-                                        </ul>
-                                    </h3>
+                                    <h3>{status}</h3>
+                                    <ul className='Personnel-list'>
+                                        {
+                                            crew
+                                                .filter(person => person.status === status)
+                                                .map((filtered, index) => {
+                                                    return (
+                                                        <li key={index} className='Personnel-card'>
+                                                            <div className='Personnel-info'>
+                                                                <img src={filtered.avatar} alt="Avatar"/>
+                                                                <p>{filtered.fullName}</p>
+                                                            </div>
+                                                            <div className='Status-actions'
+                                                                 style={
+                                                                     filtered.status === StatusesMap[0] ?
+                                                                     {justifyContent: 'flex-end'} :
+                                                                     filtered.status === StatusesMap[statusMapLength-1] ?
+                                                                         {justifyContent: 'start'} :
+                                                                         {justifyContent: 'space-between'}
+                                                                 }
+                                                            >
+                                                                {filtered.status !== StatusesMap[0] ?
+                                                                    <button onClick={this.moveToPreviousStatus.bind(this, filtered)}>Return back</button> :
+                                                                    null
+                                                                }
+                                                                {filtered.status !== StatusesMap[2] ?
+                                                                    <button onClick={this.moveToNextStatus.bind(this, filtered)}>Move further</button> :
+                                                                    null
+                                                                }
+                                                            </div>
+                                                        </li>
+                                                    )
+                                                })
+                                        }
+                                    </ul>
                                 </div>
                             )
                         })
