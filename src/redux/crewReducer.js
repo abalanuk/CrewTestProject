@@ -28,9 +28,9 @@ export default (state = initialState.crew, action) => {
                 acc.push({
                     fullName: `${first} ${last}`,
                     avatar: medium,
-                    status: StatusesMap[0]},
+                    status: StatusesMap[0],
                     city
-                );
+                });
                 return acc
             }, [])
         case MOVE_STATUS_FURTHER:

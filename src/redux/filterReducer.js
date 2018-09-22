@@ -12,7 +12,7 @@ export function clearFilter() {
 }
 
 export default (state = initialState.filter, action) => {
-    switch (action.filter) {
+    switch (action.type) {
         case SET_FILTER:
             return action.filter
         case CLEAR_FILTER:

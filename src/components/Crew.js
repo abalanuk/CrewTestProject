@@ -49,7 +49,10 @@ class ProspectiveCrew extends PureComponent {
                                                         <li key={index} className='Personnel-card'>
                                                             <div className='Personnel-info'>
                                                                 <img src={filtered.avatar} alt="Avatar"/>
-                                                                <p>{filtered.fullName}</p>
+                                                                <div>
+                                                                    <p>{filtered.fullName}</p>
+                                                                    <h5>{filtered.city}</h5>
+                                                                </div>
                                                             </div>
                                                             <div className='Status-actions'
                                                                  style={
@@ -61,12 +64,20 @@ class ProspectiveCrew extends PureComponent {
                                                                  }
                                                             >
                                                                 {filtered.status !== StatusesMap[0] ?
-                                                                    <button onClick={this.moveToPreviousStatus.bind(this, filtered)}>Return back</button> :
-                                                                    null
+                                                                    <button
+                                                                        className='Status-action'
+                                                                        onClick={this.moveToPreviousStatus.bind(this, filtered)}
+                                                                    >
+                                                                        Return back
+                                                                    </button> : null
                                                                 }
                                                                 {filtered.status !== StatusesMap[2] ?
-                                                                    <button onClick={this.moveToNextStatus.bind(this, filtered)}>Move further</button> :
-                                                                    null
+                                                                    <button
+                                                                        className='Status-action'
+                                                                        onClick={this.moveToNextStatus.bind(this, filtered)}
+                                                                    >
+                                                                        Move further
+                                                                    </button> : null
                                                                 }
                                                             </div>
                                                         </li>
@@ -88,7 +99,7 @@ const mapStateToProps = state => {
     const {crew, filter} = state
 
     if(filter) {
-        const filtered = crew.filter(person => person[filter.key] === filter.value)
+        const filtered = crew.filter(person => person[filter.key].includes(filter.value))
         return {crew: filtered}
     }
 
