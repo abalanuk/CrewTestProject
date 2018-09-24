@@ -2,21 +2,14 @@ import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
 
 import Filters from './Filters'
-import {setCrew, moveFurtherStatus, movePreviousStatus} from '../redux/crewReducer'
-import fetchData from '../data/data'
+import {moveFurtherStatus, movePreviousStatus, fetchData} from '../redux/crewReducer'
 import {StatusesMap} from '../constants/placeholders'
 
 import '../App.css';
 
 class ProspectiveCrew extends PureComponent {
     componentDidMount() {
-        const {setCrew} = this.props
-        fetchData('https://randomuser.me/api/?results=5')
-            .then(data => {
-                setCrew(data.results)
-            })
-            .catch(err => console.log(err))
-
+        !this.props.crew.length && this.props.fetchData();
     }
 
     moveToNextStatus(pers) {
@@ -108,7 +101,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setCrew: crew => dispatch(setCrew(crew)),
+        fetchData: () => dispatch(fetchData()),
         moveFurtherStatus: pers => dispatch(moveFurtherStatus(pers)),
         movePreviousStatus: pers => dispatch(movePreviousStatus(pers))
     }

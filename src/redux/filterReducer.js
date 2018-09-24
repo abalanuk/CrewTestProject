@@ -11,10 +11,14 @@ export function clearFilter() {
     return {type: CLEAR_FILTER}
 }
 
-export default (state = initialState.filter, action) => {
+const savedFilter = localStorage.getItem('filter')
+const filterState = savedFilter !== 'undefined' ? JSON.parse(savedFilter) : initialState.filter
+
+export default (state = filterState, action) => {
     switch (action.type) {
         case SET_FILTER:
-            return action.filter
+            localStorage.setItem("filter", JSON.stringify(action.filter));
+            return action.filter ? action.filter : state
         case CLEAR_FILTER:
             localStorage.removeItem("filter")
             return ''

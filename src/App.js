@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
 
-import initialState from './redux/initialState';
 import combinedReducers from './redux';
 import Crew from './components/Crew';
 import logo from './assets/images/logo.png';
 
 import './App.css';
 
-const store = createStore(combinedReducers, initialState)
+const store = createStore(combinedReducers, applyMiddleware(thunk));
 
 class App extends Component {
     render() {
