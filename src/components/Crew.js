@@ -58,7 +58,7 @@ class ProspectiveCrew extends PureComponent {
 const mapStateToProps = state => {
     const {crew, filter} = state
 
-    if(filter) {
+    if(filter.value) {
         const filtered = crew.filter(person => person[filter.key].includes(filter.value))
         return {crew: filtered}
     }

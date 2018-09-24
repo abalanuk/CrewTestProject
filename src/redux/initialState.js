@@ -1,4 +1,4 @@
 export default {
     crew: [],
-    filter: ''
+    filter: {key: '', value: ''}
 }
