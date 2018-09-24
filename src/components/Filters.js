@@ -2,15 +2,7 @@ import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
 import {setFilter} from '../redux/filterReducer';
 
-//TODO: do not forget to save filter in localStorage for persisting between tabs
 class Filters extends PureComponent {
-    _setFilter = event => {
-        event.preventDefault();
-        const {name, value} = event.target[0];
-        const filter = {key: name, value};
-        this.props.setFilter(filter);
-    }
-
     // TODO: here can be also some validation
     _onChange = event => {
         event.preventDefault()
@@ -22,7 +14,7 @@ class Filters extends PureComponent {
         const {filter} = this.props
         return (
             <div className="Crew-filters">
-                <form onSubmit={this._setFilter}>
+                <form>
                     <label htmlFor="name">by name</label>
                     <input type="text"
                            name="fullName"
@@ -32,7 +24,7 @@ class Filters extends PureComponent {
                     />
                 </form>
                 <p>Filters</p>
-                <form onSubmit={this._setFilter}>
+                <form>
                     <label htmlFor="city">by city</label>
                     <input type="text"
                            name="city"
