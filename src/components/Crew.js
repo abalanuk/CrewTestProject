@@ -21,7 +21,6 @@ class ProspectiveCrew extends PureComponent {
         this.props.movePreviousStatus(pers)
     }
 
-    //TODO: refactor this method by extracting some stuff into PersonellCard component
     render() {
         const {crew} = this.props
         return (

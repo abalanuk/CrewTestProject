@@ -5,8 +5,9 @@ import {setFilter} from '../redux/filterReducer';
 class Filters extends PureComponent {
     // TODO: here can be also some validation
     _onChange = event => {
-        event.preventDefault()
-        const {name, value} = event.target
+        event.preventDefault();
+        event.stopPropagation();
+        const {name, value} = event.target;
         this.props.setFilter({key: name, value});
     }
 
