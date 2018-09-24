@@ -1,4 +1,5 @@
-# React assignment
+# Crew Application
+Represents statuses lifecycle for candidates
 
 ### To start App
 npm i
