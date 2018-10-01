@@ -1,31 +1,6 @@
-import initialState from './initialState'
-import {StatusesMap} from '../constants/placeholders'
-import {SET_FILTER} from './filterReducer'
-
-export const SET_CREW = 'SET_CREW'
-export const MOVE_STATUS_FURTHER = 'MOVE_STATUS_FURTHER'
-export const MOVE_STATUS_PREVIOUS = 'MOVE_STATUS_PREVIOUS'
-
-export function fetchData() {
-    return (dispatch) => {
-        fetch('https://randomuser.me/api/?nat=gb&results=5')
-            .then(function(resp){
-                return resp.json();
-            })
-            .then(function(data){
-                dispatch({type: SET_CREW, crew: data.results})
-                dispatch({type: SET_FILTER})
-        })
-    }
-}
-
-export function moveFurtherStatus (person) {
-    return {type: MOVE_STATUS_FURTHER, person}
-}
-
-export function movePreviousStatus (person) {
-    return {type: MOVE_STATUS_PREVIOUS, person}
-}
+import initialState from '../initialState';
+import {MOVE_STATUS_FURTHER, MOVE_STATUS_PREVIOUS, SET_CREW} from '../actions/crew';
+import {StatusesMap} from '../../constants/placeholders';
 
 export default (state = initialState.crew, action) => {
     const statusArrLength = StatusesMap.length

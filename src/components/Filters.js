@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
-import {setFilter} from '../redux/filterReducer';
+import {setFilter} from '../redux/reducers/filterReducer';
 
 class Filters extends PureComponent {
     // TODO: here can be also some validation

@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
-import crewReducer from './crewReducer';
-import filterReducer from './filterReducer';
+
+import crewReducer from './reducers/crewReducer';
+import filterReducer from './reducers/filterReducer';
 
 export default combineReducers({
     crew: crewReducer,

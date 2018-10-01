@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
 
 import Filters from './Filters'
-import {moveFurtherStatus, movePreviousStatus, fetchData} from '../redux/crewReducer'
+import {moveFurtherStatus, movePreviousStatus, fetchData} from '../redux/reducers/crewReducer'
 import {StatusesMap} from '../constants/placeholders'
 
 import '../App.css';
