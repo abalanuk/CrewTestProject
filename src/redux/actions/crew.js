@@ -7,13 +7,12 @@ export const MOVE_STATUS_PREVIOUS = 'MOVE_STATUS_PREVIOUS';
 export function fetchData() {
     return (dispatch) => {
         fetch('https://randomuser.me/api/?nat=gb&results=5')
-            .then(function(resp){
-                return resp.json();
-            })
-            .then(function(data){
+            .then(resp => resp.json())
+            .then(data => {
                 dispatch({type: SET_CREW, crew: data.results})
                 dispatch({type: SET_FILTER})
             })
+            .catch(err => console.log(err.message))
     }
 }
 
