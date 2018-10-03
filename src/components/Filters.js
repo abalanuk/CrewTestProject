@@ -3,10 +3,12 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {setFilter} from '../redux/actions/filter';
+import {PLACEHOLDERS} from '../constants/placeholders';
 
 class Filters extends PureComponent {
     constructor(props) {
         super(props)
+
         this._onChange = this._onChange.bind(this)
     }
     // TODO: here can be also some validation
@@ -30,7 +32,7 @@ class Filters extends PureComponent {
                            onChange={this._onChange}
                     />
                 </form>
-                <p>Filters</p>
+                <p>{PLACEHOLDERS.filterTitle}</p>
                 <form>
                     <label htmlFor="city">by city</label>
                     <input type="text"
