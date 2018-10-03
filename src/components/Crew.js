@@ -2,14 +2,14 @@ import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Filters from './Filters';
 import {moveFurtherStatus, movePreviousStatus, fetchData} from '../redux/actions/crew';
 import {StatusesMap} from '../constants/placeholders';
+import PersonnelCard from './PersonellCard';
+import Filters from './Filters';
 
 import '../App.css';
-import PersonnelCard from './PersonellCard';
 
-class ProspectiveCrew extends PureComponent {
+class Crew extends PureComponent {
     constructor(props) {
         super(props)
         this.moveToNextStatus = this.moveToNextStatus.bind(this)
@@ -44,11 +44,14 @@ class ProspectiveCrew extends PureComponent {
                                             crew
                                                 .filter(person => person.status === status)
                                                 .map((filtered, index) => {
-                                                    return <PersonnelCard
-                                                        data={{filtered, index}}
-                                                        moveFurther={this.moveToNextStatus}
-                                                        moveToPrevious={this.moveToPreviousStatus}
-                                                    />
+                                                    return (
+                                                        <PersonnelCard
+                                                            key={index}
+                                                            data={{filtered, index}}
+                                                            moveFurther={this.moveToNextStatus}
+                                                            moveToPrevious={this.moveToPreviousStatus}
+                                                        />
+                                                    )
                                                 })
                                         }
                                     </ul>
@@ -62,7 +65,12 @@ class ProspectiveCrew extends PureComponent {
     }
 }
 
-ProspectiveCrew.propTypes = {}
+Crew.propTypes = {
+    crew: PropTypes.array.isRequired,
+    fetchData: PropTypes.func.isRequired,
+    moveFurtherStatus: PropTypes.func.isRequired,
+    movePreviousStatus: PropTypes.func.isRequired,
+}
 
 const mapStateToProps = state => {
     const {crew, filter} = state
@@ -83,4 +91,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProspectiveCrew)
+export default connect(mapStateToProps, mapDispatchToProps)(Crew)

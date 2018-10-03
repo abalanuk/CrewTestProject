@@ -4,7 +4,7 @@
  
  [-] add styled components
  
- [-] add package-lock.json
+ [+] add package-lock.json
  
  [-] make code easy to read
  

@@ -1,12 +1,21 @@
 import React, { PureComponent } from 'react';
-import {StatusesMap} from '../constants/placeholders'
+import PropTypes from 'prop-types'
+
+import {StatusesMap, PLACEHOLDERS} from '../constants/placeholders'
 
 class PersonnelCard extends PureComponent {
-    _moveToPrevious = (data) => {
+    constructor(props) {
+        super(props)
+
+        this._moveFurther = this._moveFurther.bind(this)
+        this._moveToPrevious = this._moveToPrevious.bind(this)
+    }
+
+    _moveToPrevious(data) {
         this.props.moveToPrevious(data)
     }
 
-    _moveFurther = (data) => {
+    _moveFurther(data) {
         this.props.moveFurther(data)
     }
 
@@ -36,7 +45,7 @@ class PersonnelCard extends PureComponent {
                             className='Status-action'
                             onClick={this._moveToPrevious.bind(this, filtered)}
                         >
-                            Return back
+                            {PLACEHOLDERS.moveBack}
                         </button> : null
                     }
                     {filtered.status !== StatusesMap[2] ?
@@ -44,13 +53,19 @@ class PersonnelCard extends PureComponent {
                             className='Status-action'
                             onClick={this._moveFurther.bind(this, filtered)}
                         >
-                            Move further
+                            {PLACEHOLDERS.moveFurther}
                         </button> : null
                     }
                 </div>
             </li>
         )
     }
+}
+
+PersonnelCard.propTypes = {
+    data: PropTypes.object.isRequired,
+    moveToPrevious: PropTypes.func.isRequired,
+    moveFurther: PropTypes.func.isRequired
 }
 
 export default PersonnelCard

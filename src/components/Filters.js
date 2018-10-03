@@ -45,7 +45,10 @@ class Filters extends PureComponent {
     }
 }
 
-Filters.propTypes = {}
+Filters.propTypes = {
+    filter: PropTypes.object.isRequired,
+    setFilter: PropTypes.func.isRequired
+}
 
 const mapStateToProps = state => {
     return {filter: state.filter}
@@ -54,7 +57,7 @@ const mapStateToProps = state => {
 //TODO: as additional option we can not replace one filter by another but save both and apply them one by one
 const mapDispatchToProps = dispatch => {
     return {
-        setFilter: (filter) => dispatch(setFilter(filter))
+        setFilter: filter => dispatch(setFilter(filter))
     }
 }
 
