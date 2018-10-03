@@ -1,10 +1,16 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
-import {setFilter} from '../redux/reducers/filterReducer';
+import PropTypes from 'prop-types';
+
+import {setFilter} from '../redux/actions/filter';
 
 class Filters extends PureComponent {
+    constructor(props) {
+        super(props)
+        this._onChange = this._onChange.bind(this)
+    }
     // TODO: here can be also some validation
-    _onChange = event => {
+    _onChange(event) {
         event.preventDefault();
         event.stopPropagation();
         const {name, value} = event.target;
@@ -38,6 +44,8 @@ class Filters extends PureComponent {
         );
     }
 }
+
+Filters.propTypes = {}
 
 const mapStateToProps = state => {
     return {filter: state.filter}

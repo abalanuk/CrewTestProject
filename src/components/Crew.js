@@ -1,24 +1,31 @@
 import React, { PureComponent } from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-import Filters from './Filters'
-import {moveFurtherStatus, movePreviousStatus, fetchData} from '../redux/reducers/crewReducer'
-import {StatusesMap} from '../constants/placeholders'
+import Filters from './Filters';
+import {moveFurtherStatus, movePreviousStatus, fetchData} from '../redux/actions/crew';
+import {StatusesMap} from '../constants/placeholders';
 
 import '../App.css';
-import PersonnelCard from './PersonellCard'
+import PersonnelCard from './PersonellCard';
 
 class ProspectiveCrew extends PureComponent {
+    constructor(props) {
+        super(props)
+        this.moveToNextStatus = this.moveToNextStatus.bind(this)
+        this.moveToPreviousStatus = this.moveToPreviousStatus.bind(this)
+    }
+
     componentDidMount() {
         !this.props.crew.length && this.props.fetchData();
     }
 
-    moveToNextStatus = (pers) => {
-        this.props.moveFurtherStatus(pers)
+    moveToNextStatus(person) {
+        this.props.moveFurtherStatus(person)
     }
     
-    moveToPreviousStatus = (pers) => {
-        this.props.movePreviousStatus(pers)
+    moveToPreviousStatus(person) {
+        this.props.movePreviousStatus(person)
     }
 
     render() {
@@ -55,6 +62,8 @@ class ProspectiveCrew extends PureComponent {
     }
 }
 
+ProspectiveCrew.propTypes = {}
+
 const mapStateToProps = state => {
     const {crew, filter} = state
 
@@ -69,8 +78,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchData: () => dispatch(fetchData()),
-        moveFurtherStatus: pers => dispatch(moveFurtherStatus(pers)),
-        movePreviousStatus: pers => dispatch(movePreviousStatus(pers))
+        moveFurtherStatus: person => dispatch(moveFurtherStatus(person)),
+        movePreviousStatus: person => dispatch(movePreviousStatus(person))
     }
 }
 
